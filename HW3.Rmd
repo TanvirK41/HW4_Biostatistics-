@@ -1,6 +1,7 @@
 ---
-title: "P8130 Fall 2021: Biostatistical Methods I"
-author: "Homework III"
+title: "P8130 Fall 2021: Biostatistical Methods I (Homework 3)"
+author: "TANVIR KHAN"
+UNI: "tk2886"
 date: "Due Friday, 10/22 @5:00pm"
 output: pdf_document
 ---
@@ -16,7 +17,7 @@ Carotid endarterectomy (CE) is a vascular surgical procedure intending to improv
 An important question about carotid endarterectomy addressed by the HSCRC data is whether the risk of stroke or death after surgery decreases with increasing numbers of surgeries by the patient’s physician and at the patient’s hospital.  
 
 In this project, we will use the CE data from HSCRC to explore the distribution of procedure costs across a population of procedures conducted in Maryland for the period 1990 through 1995. An interesting question is how mean CE costs differ between men and women. We will be estimating mean costs for different strata and by using confidence intervals and tests of hypotheses to address the question of how the CE cost distribution differs between men and women. Here we have list of CE values for the entire population of Maryland so that we can directly calculate the “truth” (population means for men and women); in actual scientific studies, we have only a sample (subset). By pretending we don’t know the true population values, we can see statistical inference in action.
-
+\newpage
 
 
 
@@ -126,7 +127,11 @@ plot =
     )
 plot
 ```
-We know that Sample A has larger sampling population (200 individuals) than sample B sampling population (60 individuals). A larger sample size or lower variability will result in a tighter confidence interval with a smaller margin of error. A smaller sample size or a higher variability will result in a wider confidence interval with a larger margin of error. If we analyze our confidence interval plot, we see that for sample B, which has a smaller sample population has a wider confidence interval, which means there is larger margin or error. However based on the graph, saple A which has larger sample population has a narrower confidence interval. 
+We know that Sample A has larger sampling population (200 individuals) than sample B sampling population (60 individuals). A larger sample size or lower variability will result in a tighter confidence interval with a smaller margin of error. A smaller sample size or a higher variability will result in a wider confidence interval with a larger margin of error. If we analyze our confidence interval plot, we see that for sample B, which has a smaller sample population has a wider confidence interval, which means there is larger margin or error. However based on the graph, sample A which has larger sample population has a narrower confidence interval. 
+
+For sample A, we may state since men in sample A has a larger standard deviation than women in sample A, this will lead to a higher standard error and wider confidence interval for  men. 
+
+For sample B, we may state since men in sample B has a larger standard deviation than women in sample B, this will lead to a higher standard error and wider confidence interval for  men. 
 
 
 \newpage
@@ -328,7 +333,7 @@ Yes the true mean `r true_mean` is in the 95% Confidence Interval for male and f
 If each student in a class of 140 calculates a 95% confidence interval for ($\mu_{M}-\mu_{W}$), how many of these intervals do you expect to contain the true population mean difference? Calculate the probability that all 140 will contain the true population mean difference. 
 ```{r}
 expected_number_of_students = 140*.95
-number_of_students
+expected_number_of_students
 
 p = dbinom(140,140,0.95)
 p
