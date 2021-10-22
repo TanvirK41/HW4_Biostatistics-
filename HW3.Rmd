@@ -1,7 +1,7 @@
 ---
 title: "P8130 Fall 2021: Biostatistical Methods I (Homework 3)"
-author: "TANVIR KHAN"
-UNI: "tk2886"
+author: "TANVIR KHAN, UNI: tk2886"
+
 date: "Due Friday, 10/22 @5:00pm"
 output: pdf_document
 ---
@@ -25,7 +25,7 @@ In this project, we will use the CE data from HSCRC to explore the distribution 
 Draw a random sample without replacement of 200 observations (100 men and 100 women) from the entire CE data set named ce8130entire.csv. Call this first sample "A" and save the sample. In "sex" variable, men are identified by "1", and women by "2". Note: To obtain the sample data set of approximately 200 observations, you can use the following code. Replace the "set.seed" number with an integer of your choice (3 points).
 
 
-```{r}
+```{r message=FALSE}
 population = read.csv("./ce8130entire.csv")
 
 library(dplyr)
@@ -43,7 +43,7 @@ A = population %>%
 ## Problem 2 (3 points)
 Now use the same seed as before but this time draw a random sample without replacement of 60 observations (30 men and 30 women) and call it sample “B” (Note that Sample “B” is more than 3 times smaller than sample “A”). Save it as a separate sample. Replace the seed number with the same seed number as you used above (3 points).
 
-```{r}
+```{r message = FALSE}
 set.seed(204) #replace seed number with the same integer you used above
 B = population %>%
   group_by(sex) %>%
@@ -70,7 +70,7 @@ boxplot(A$totchg ~ A$sex,
         xlab = "Sex")
 ```
 
-*Analysis of boxplot: The side by side boxplot grouped by sex also shows that both men and women on average are towards the lower part of the CE cost. However in the men boxplot, it shows an extreme outlier (cost of CE being more than $25,000). In the women boxplot, it seems like there is two outliers but not as extreme as that one outlier in the men boxplot.*
+*Analysis of boxplot: The side by side boxplot grouped by sex also shows that both men and women on average do not have a great significant difference in CE cost. However in the men boxplot, it shows an extreme outlier (cost of CE being more than $25,000). In the women boxplot, it seems like there is two outliers but not as extreme as that one outlier in the men boxplot.*
 
 \newpage
 
@@ -84,12 +84,12 @@ A %>%
   labs(
       title = "Distribution of Carotid endarterectomy (CE) cost in $USD",
       subtitle = "Grouped by sex", 
-      x = "totchg", 
+      x = "CE cost in $USD", 
       y = "Count") +
   facet_grid(~ sex)
 ```
 
-*Analysis of histogram plot: The stacked histogram shows the distribution of Carotid endarterectomy (CE) cost in United Stated of America between sex groups. Based of the stacked histogram, both men and women are shown towards the lower price of CE. However there are some data that shows men may deal with higher costs of CE.* 
+*Analysis of histogram plot: The stacked histogram shows the distribution of Carotid endarterectomy (CE) cost in United Stated of America between sex groups. Based of the stacked histogram, both men and women do not have a great significant difference in the cost of CE. However there are a few data that shows men may deal with higher costs of CE.* 
 \newpage
 
 
@@ -118,7 +118,7 @@ plot =
     geom_errorbar(aes(ymin = totchg - ci, ymax = totchg + ci), width = .1, position = p_dodge) +
     geom_point(position = p_dodge) + 
     labs(
-      title = "Sample “A” and Sample “B” Confidence Intervals",
+      title = "Sample A and Sample B Confidence Intervals",
       subtitle = "by sex", 
       x = "Sample", 
       y = "totchg") +
@@ -129,10 +129,13 @@ plot
 ```
 We know that Sample A has larger sampling population (200 individuals) than sample B sampling population (60 individuals). A larger sample size or lower variability will result in a tighter confidence interval with a smaller margin of error. A smaller sample size or a higher variability will result in a wider confidence interval with a larger margin of error. If we analyze our confidence interval plot, we see that for sample B, which has a smaller sample population has a wider confidence interval, which means there is larger margin or error. However based on the graph, sample A which has larger sample population has a narrower confidence interval. 
 
-For sample A, we may state since men in sample A has a larger standard deviation than women in sample A, this will lead to a higher standard error and wider confidence interval for  men. 
+For sample A, it is shown in the summary table that men in sample A has a larger standard deviation than women in sample A, this will lead to a higher standard error and wider confidence interval for men. 
 
-For sample B, we may state since men in sample B has a larger standard deviation than women in sample B, this will lead to a higher standard error and wider confidence interval for  men. 
+For sample A, it is shown in the summary table that women in sample B has a smaller standard deviation than men in sample A, this indicates that most of the sample women A data is clustered around the mean.
 
+For sample B, it is shown in the summary table that men in sample B has a larger standard deviation than women in sample B, this will lead to a higher standard error and wider confidence interval for men. 
+
+For sample B, it is shown in the summary table that women in sample B has a smaller standard deviation than men in sample B, this indicates that most of the sample women B data is clustered around the mean.
 
 \newpage
 
@@ -172,7 +175,7 @@ Confidence_interval_female_b <- c(female_minimum_b, female_maximum_b)
 ```
 The mean cost of Carotid endarterectomy (CE) surgical procedure for male in sample A is `r male_mean_A`. The mean cost of Carotid endarterectomy (CE) surgical procedure for female in sample A is `r female_mean_A`. The mean cost of Carotid endarterectomy (CE) surgical procedure for male in sample B is `r male_mean_B`. The mean cost of Carotid endarterectomy (CE) surgical procedure for female in sample B is `r female_mean_B`. 
 
-The confidence interval for male sample population A is `r `Confidence_interval_male_A`. The confidence interval for female sample population a is `r Confidence_interval_female_A`. The confidence interval for male sample population B is `r `Confidence_interval_male_b`. The confidence interval for female sample population B is `r Confidence_interval_female_b`. 
+The confidence interval for male sample population A is `r Confidence_interval_male_A`. The confidence interval for female sample population a is `r Confidence_interval_female_A`. The confidence interval for male sample population B is `r Confidence_interval_male_b`. The confidence interval for female sample population B is `r Confidence_interval_female_b`. 
 
 \newpage
 
@@ -203,7 +206,9 @@ ifelse(F_statistics > F_critical, "reject", "fail to reject")
 Analysis:
 
 **Ho**: the variances of CE cost among men vs women in sample A are equal
+
 **Ha**: the variance of CE cost among men vs women in sample A are not equal
+
 **alpha**: 0.05
 
 The F test-statistics is greater than F-critical value under the null hypothesis, we **reject the null hypothesis**. We **have sufficient evidence** to reject the null hypothesis that the variances of CE cost among men vs women in sample A are equal. 
@@ -234,9 +239,11 @@ margin_error <- (tcrit * standard_error)
 
 CI_difference <- c(diff - margin_error, diff + margin_error)
 CI_difference
-
-#mean difference confidence interval between male and female 
 ```
+
+*95% Confidence Interval* for the difference between the mean CE costs 
+for men and women is **`r CI_difference`**. 
+
 \newpage
 
 
@@ -262,13 +269,16 @@ ifelse(abs(tstat) > tcrit, "reject", "fail to reject")
 
 res
 ```
-*Hypothesis Testing:*
+**Hypothesis Testing:**
 
-*Ho:* The mean CE cost of Men and Women are equal. 
-*Ha:* The mean CE cost of Men and Women are unequal. 
+**Ho:** The mean CE cost of Men and Women are equal. 
 
-*Analysis:* The absolute t-value (0.4841) is smaller than t-critical value (1.959964) under the null hypothesis, 
-we fail to reject the null hypothesis. This indicates that we have insufficient evidence to the reject the null hypothesis in which the means of CE cost among men and women are equal. 
+**Ha:** The mean CE cost of Men and Women are unequal. 
+
+**alpha:** 0.05
+
+**Analysis:** The absolute t-value (0.4841) is smaller than t-critical value (1.959964) under the null hypothesis, 
+we **fail to reject the null hypothesis**. This indicates that we have insufficient evidence to the reject the null hypothesis in which the means of CE cost among men and women are equal. 
 \newpage
 
 
